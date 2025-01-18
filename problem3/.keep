@@ -1,0 +1,52 @@
+interface WalletBalance {
+  currency: string;
+  amount: number;
+}
+
+interface FormattedWalletBalance extends WalletBalance {
+  formatted: string;
+}
+
+interface Props extends BoxProps {}
+
+const WalletPage: React.FC<Props> = (props: Props) => {
+  const { children, ...rest } = props;
+  const balances = useWalletBalances();
+  const prices = usePrices();
+
+  // Kết hợp lọc, sắp xếp và định dạng trong một lần duyệt
+  const sortedAndFormattedBalances = useMemo(() => {
+    const sortedBalances = balances
+      .filter((balance: WalletBalance) => balance.amount > 0)
+      .map((balance: WalletBalance) => ({
+        ...balance,
+        formatted: balance.amount.toFixed(2),
+      }))
+      .sort((lhs, rhs) => {
+        if (lhs.amount > rhs.amount) return -1;
+        if (lhs.amount < rhs.amount) return 1;
+        return 0;
+      });
+
+    return sortedBalances;
+  }, [balances]);
+
+  // Tính toán usdValue chỉ một lần khi tạo các dòng WalletRow
+  const rows = sortedAndFormattedBalances.map(
+    (balance: FormattedWalletBalance, index: number) => {
+      const usdValue = prices[balance.currency] * balance.amount;
+
+      return (
+        <WalletRow
+          className={classes.row}
+          key={index}
+          amount={balance.amount}
+          usdValue={usdValue}
+          formattedAmount={balance.formatted}
+        />
+      );
+    }
+  );
+
+  return <div {...rest}>{rows}</div>;
+};

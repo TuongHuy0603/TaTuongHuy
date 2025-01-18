@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Swap</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div
+      class="container d-flex justify-content-center align-items-center min-vh-100"
+    >
+      <div class="card shadow-lg" style="max-width: 600px; width: 100%">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Currency Swap</h2>
+
+          <form id="currency-swap-form">
+            <!-- From Currency -->
+            <div class="mb-3">
+              <label for="from-currency" class="form-label"
+                >From Currency</label
+              >
+              <select id="from-currency" class="form-select" required>
+                <!-- Options will be populated dynamically -->
+              </select>
+            </div>
+
+            <!-- To Currency -->
+            <div class="mb-3">
+              <label for="to-currency" class="form-label">To Currency</label>
+              <select id="to-currency" class="form-select" required>
+                <!-- Options will be populated dynamically -->
+              </select>
+            </div>
+
+            <!-- Amount Input -->
+            <div class="mb-3">
+              <label for="amount" class="form-label">Amount</label>
+              <input
+                type="number"
+                id="amount"
+                class="form-control"
+                placeholder="Enter amount to swap"
+                required
+                min="0"
+              />
+            </div>
+
+            <!-- Result Box -->
+            <div class="mb-3 result-box">
+              <p id="rate-display" class="mb-0">Exchange Rate: --</p>
+              <p id="result-display" class="mb-0">Amount in To Currency: --</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Swap</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -51,14 +51,27 @@ const calculateSwap = (e) => {
   const rate = fromPrice / toPrice;
 
   const result = amount * rate;
-  $("#rate-display").text(
-    `Exchange Rate: 1 ${fromCurrencyText} = ${rate.toFixed(
-      4
-    )} ${toCurrencyText}`
-  );
-  $("#result-display").text(
-    `Amount in ${toCurrencyText}: ${result.toFixed(4)}`
-  );
+  const fromCurrencyImage = `https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${fromCurrencyText}.svg`;
+  const toCurrencyImage = `https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${toCurrencyText}.svg`;
+
+  // Displaying exchange rate with images
+  $("#rate-display").html(`
+    <div class="center-content">
+        Exchange Rate: 1 
+        <img src="${fromCurrencyImage}" alt="${fromCurrencyText} icon" style="width:20px; height:20px;"/> 
+        ${fromCurrencyText} = ${rate.toFixed(4)} 
+        <img src="${toCurrencyImage}" alt="${toCurrencyText} icon" style="width:20px; height:20px;"/>
+        ${toCurrencyText}
+    </div>
+`);
+
+  $("#result-display").html(`
+    <div class="center-content">
+        Amount in 
+        <img src="${toCurrencyImage}" alt="${toCurrencyText} icon" style="width:20px; height:20px;"/> 
+        ${toCurrencyText}: ${result.toFixed(4)}
+    </div>
+`);
 };
 
 $("#currency-swap-form").on("submit", calculateSwap);
